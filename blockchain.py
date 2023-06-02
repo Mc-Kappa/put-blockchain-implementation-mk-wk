@@ -2,6 +2,8 @@ import hashlib
 import json
 from time import time
 import random
+import platform
+import os
 
 class Blockchain:
     def __init__(self):
@@ -99,6 +101,11 @@ while(1 == 1):
             x = input()
 
             x = int(x)
+
+            if(platform.system == "Windows"):
+                os.system("cls")
+            else:
+                os.system("clear")
 
             if(x == 1):
                 proof = random.randint(10000, 100000)  # Placeholder for the actual proof of work
