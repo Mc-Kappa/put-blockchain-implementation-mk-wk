@@ -20,6 +20,13 @@ def loadLogins(database):
 def hashPassword(password):
     return hashlib.sha256(password).hexdigest()
 
+def clear():
+    if(platform.system == "Windows"):
+        os.system("cls")
+    else:
+        os.system("clear")
+    
+
 class Blockchain:
     def __init__(self):
         self.chain = []
@@ -102,15 +109,19 @@ while(1 == 1):
     login = login_attempt = input("Login: ")
     password_attempt = pwinput.pwinput("Password: ")
     try:
+        clear()
         userDictionary[login_attempt]
     except:
-        print("Bad username or password!")
+        clear()
+        print("Wrong username or password!")
         continue
     if (hashPassword(password_attempt.encode("utf-8")) != userDictionary[login_attempt]):
-        print("Bad username or password!")
+        clear()
+        print("Wrong username or password!")
         counter += 1 
         if (counter >2):
-            print("Entered 3 times bad username or password, exiting...")
+            clear()
+            print("Wromg username or password entered three times, exiting...")
             break
     else:
         counter = 0 
@@ -129,15 +140,13 @@ while(1 == 1):
 
             x = int(x)
 
-            # if(platform.system == "Windows"):
-            #     os.system("cls")
-            # else:
-            #     os.system("clear")
-
             if(x == 1):
                 proof = random.randint(10000, 100000)  # Placeholder for the actual proof of work
                 previous_hash = blockchain.hash(blockchain.last_block)
                 blockchain.create_block(proof, previous_hash)
+
+                clear()
+
                 print("New block added!")
 
             elif(x == 2):
@@ -148,31 +157,43 @@ while(1 == 1):
 
                 blockchain.new_transaction(login, receiver, amount)
 
+                clear()
+
                 print("Transaction complete!")
 
             elif(x == 3):
+
+                clear()
+
                 for block in blockchain.chain:
                     print(json.dumps(block, indent=2))
                     print('-' * 30)
 
                 filename = "sample.json"
                 blockchain.export_to_file(filename)
+
                 print("Blockchain exported to file:", filename)
 
             elif(x == 4):
+
+                clear()
+
                 print("Is blockchain valid?", blockchain.is_valid())
 
             elif(x == 5):
+
+                clear()
+
                 break
 
             else:
+
+                clear()
+
                 print("Wrong key, type again")
 
 #    else: 
 #        print("Wrong credentials. Try again.")
-        # if(platform.system == "Windows"):
-        #     os.system("cls")
-        # else:
-        #     os.system("clear")
+        
 
 
