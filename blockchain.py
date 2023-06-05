@@ -81,6 +81,7 @@ login = "admin"
 password = "admin"
 
 while(1 == 1):
+
     print("Ctrl + C to exit")
     login_attempt = input("Login: ")
     password_attempt = input("Password: ")
@@ -102,23 +103,26 @@ while(1 == 1):
 
             x = int(x)
 
-            if(platform.system == "Windows"):
-                os.system("cls")
-            else:
-                os.system("clear")
+            # if(platform.system == "Windows"):
+            #     os.system("cls")
+            # else:
+            #     os.system("clear")
 
             if(x == 1):
                 proof = random.randint(10000, 100000)  # Placeholder for the actual proof of work
                 previous_hash = blockchain.hash(blockchain.last_block)
                 blockchain.create_block(proof, previous_hash)
-                print("new block added!")
+                print("New block added!")
 
             elif(x == 2):
-                sender = input("Type who is the sender: ")
+                print("The sender is: {}".format(login))
+
                 receiver = input("Type who is the receiver: ")
                 amount = input("Type the amount to transfer: ")
 
-                blockchain.new_transaction(sender, receiver, amount)
+                blockchain.new_transaction(login, receiver, amount)
+
+                print("Transaction complete!")
 
             elif(x == 3):
                 for block in blockchain.chain:
@@ -140,5 +144,9 @@ while(1 == 1):
 
     else: 
         print("Wrong credentials. Try again.")
+        # if(platform.system == "Windows"):
+        #     os.system("cls")
+        # else:
+        #     os.system("clear")
 
 
