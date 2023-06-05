@@ -4,6 +4,7 @@ from time import time
 import random
 import platform
 import os
+import pwinput
 
 def loadLogins(database):
     userDictionary = {}
@@ -99,12 +100,17 @@ while(1 == 1):
 
     print("Ctrl + C to exit")
     login = login_attempt = input("Login: ")
-    password_attempt = input("Password: ")
+    password_attempt = pwinput.pwinput("Password: ")
+    try:
+        userDictionary[login_attempt]
+    except:
+        print("Bad username or password!")
+        continue
     if (hashPassword(password_attempt.encode("utf-8")) != userDictionary[login_attempt]):
-        print("Wrong credentials, try again")
+        print("Bad username or password!")
         counter += 1 
         if (counter >2):
-            print("Entered 3 times bad credentials, exiting...")
+            print("Entered 3 times bad username or password, exiting...")
             break
     else:
         counter = 0 
