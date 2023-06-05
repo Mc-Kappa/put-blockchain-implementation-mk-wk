@@ -5,6 +5,20 @@ import random
 import platform
 import os
 
+def loadLogins(database):
+    userDictionary = {}
+    with open(database, 'r') as credentials:
+        line = credentials.readlines()
+    for x in line:
+        if('\n') in x:
+            x = x[:-1]
+        temp = x.split(":")
+        userDictionary[temp[0]] = temp[1]
+    return userDictionary
+
+def hashPassword(password):
+    return hashlib.sha256(password).hexdigest()
+
 class Blockchain:
     def __init__(self):
         self.chain = []
@@ -77,17 +91,23 @@ class Blockchain:
 # Example usage
 blockchain = Blockchain()
 
-login = "admin"
-password = "admin"
+database = 'database.txt'
+userDictionary = loadLogins(database)
+counter = 0 
 
 while(1 == 1):
 
     print("Ctrl + C to exit")
     login_attempt = input("Login: ")
     password_attempt = input("Password: ")
-        
-    if(login_attempt == login and password_attempt == password):
-
+    if (hashPassword(password_attempt.encode("utf-8")) != userDictionary[login_attempt]):
+        print("Wrong credentials, try again")
+        counter += 1 
+        if (counter >2):
+            print("Entered 3 times bad credentials, exiting...")
+            break
+    else:
+        counter = 0 
         filename = "sample.json"
 
         blockchain.import_from_file(filename)
@@ -142,8 +162,8 @@ while(1 == 1):
             else:
                 print("Wrong key, type again")
 
-    else: 
-        print("Wrong credentials. Try again.")
+#    else: 
+#        print("Wrong credentials. Try again.")
         # if(platform.system == "Windows"):
         #     os.system("cls")
         # else:
