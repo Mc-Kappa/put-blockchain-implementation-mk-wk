@@ -98,7 +98,7 @@ counter = 0
 while(1 == 1):
 
     print("Ctrl + C to exit")
-    login_attempt = input("Login: ")
+    login = login_attempt = input("Login: ")
     password_attempt = input("Password: ")
     if (hashPassword(password_attempt.encode("utf-8")) != userDictionary[login_attempt]):
         print("Wrong credentials, try again")
