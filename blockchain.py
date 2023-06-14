@@ -21,7 +21,7 @@ def hashPassword(password):
     return hashlib.sha256(password).hexdigest()
 
 def clear():
-    if(platform.system == "Windows"):
+    if(platform.system() == "Windows"):
         os.system("cls")
     else:
         os.system("clear")
@@ -104,7 +104,7 @@ userDictionary = loadLogins(database)
 counter = 0 
 
 while(1 == 1):
-
+    print("Blockchain ver. 0.0.0.1 pre-alpha - not for commercial use")
     print("Ctrl + C to exit")
     login = login_attempt = input("Login: ")
     password_attempt = pwinput.pwinput("Password: ")
@@ -121,7 +121,7 @@ while(1 == 1):
         counter += 1 
         if (counter >2):
             clear()
-            print("Wromg username or password entered three times, exiting...")
+            print("Wrong username or password entered three times, exiting...")
             break
     else:
         counter = 0 
@@ -150,6 +150,7 @@ while(1 == 1):
                 print("New block added!")
 
             elif(x == 2):
+                clear()
                 print("The sender is: {}".format(login))
 
                 receiver = input("Type who is the receiver: ")
@@ -157,7 +158,7 @@ while(1 == 1):
 
                 blockchain.new_transaction(login, receiver, amount)
 
-                clear()
+                
 
                 print("Transaction complete!")
 
@@ -191,9 +192,6 @@ while(1 == 1):
                 clear()
 
                 print("Wrong key, type again")
-
-#    else: 
-#        print("Wrong credentials. Try again.")
         
 
 
