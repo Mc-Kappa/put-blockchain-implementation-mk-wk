@@ -154,14 +154,15 @@ while(1 == 1):
                 print("The sender is: {}".format(login))
 
                 receiver = input("Type who is the receiver: ")
+
                 amount = input("Type the amount to transfer: ")
-
-                blockchain.new_transaction(login, receiver, amount)
-
-                
-
-                print("Transaction complete!")
-
+                try:
+                    while(int(amount) <= 0):
+                        amount = input("Type amount greater than 0: ") 
+                    blockchain.new_transaction(login, receiver, amount)
+                    print("Transaction complete!")
+                except:
+                    print("Value is not correct!")
             elif(x == 3):
 
                 clear()
